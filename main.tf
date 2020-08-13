@@ -83,35 +83,3 @@ resource "aws_iam_role_policy_attachment" "monitoring" {
   policy_arn  = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
   role        = "${aws_iam_role.monitoring.name}"
 }
-
-
-resource "aws_db_instance" "rds" {
-  allocated_storage           = 100
-  auto_minor_version_upgrade  = true
-  backup_retention_period     = 7
-  backup_window               = "05:00-05:30"
-  copy_tags_to_snapshot       = true
-  db_subnet_group_name        = "${aws_db_subnet_group.rds.name}"
-  engine                      = "postgres"
-  engine_version              = "${var.engine_version}"
-  final_snapshot_identifier   = "${var.name}-final"
-  identifier                  = "${var.name}"
-  instance_class              = "${var.instance_class}"
-  kms_key_id                  = "${aws_kms_key.rds.arn}"
-  lifecycle {
-    prevent_destroy = true
-  }
-  monitoring_interval         = 60
-  monitoring_role_arn         = "${aws_iam_role.monitoring.arn}"
-  multi_az                    = true
-  name                        = "${var.database_name}"
-  parameter_group_name        = "${aws_db_parameter_group.rds.name}"
-  password                    = "${random_string.master_password.result}"
-  storage_encrypted           = true
-  storage_type                = "gp2"
-  tags                        = "${local.tags}"
-  username                    = "${var.username}"
-  vpc_security_group_ids      = [
-    "${aws_security_group.rds.id}"
-  ]
-}
