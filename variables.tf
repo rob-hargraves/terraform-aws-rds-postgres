@@ -14,6 +14,12 @@ variable "instance_class" {
   type        = "string"
 }
 
+variable "instance_name" {
+  default     = ""
+  description = "The name of the instance to be created, if different than name."
+  type        = "string"
+}
+
 variable "name" {
   description = "The name of resources created, used either directly or as a prefix."
   type        = "string"

@@ -94,8 +94,8 @@ resource "aws_db_instance" "rds" {
   db_subnet_group_name        = "${aws_db_subnet_group.rds.name}"
   engine                      = "postgres"
   engine_version              = "${var.engine_version}"
-  final_snapshot_identifier   = "${var.name}-final"
-  identifier                  = "${var.name}"
+  final_snapshot_identifier   = "${local.instance_name}-final"
+  identifier                  = "${local.instance_name}"
   instance_class              = "${var.instance_class}"
   kms_key_id                  = "${aws_kms_key.rds.arn}"
   lifecycle {
