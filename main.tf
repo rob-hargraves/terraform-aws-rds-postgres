@@ -87,7 +87,7 @@ resource "aws_iam_role_policy_attachment" "monitoring" {
 
 resource "aws_db_instance" "rds" {
   allocated_storage           = 100
-  auto_minor_version_upgrade  = true
+  auto_minor_version_upgrade  = "${var.auto_minor_version_upgrade}"
   backup_retention_period     = 7
   backup_window               = "05:00-05:30"
   copy_tags_to_snapshot       = true
